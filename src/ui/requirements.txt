@@ -1,0 +1,5 @@
+azure-identity==1.19.0
+python-dotenv==1.0.1
+chainlit==2.2.1
+websockets==14.0
+invoke==2.2.0

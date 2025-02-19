@@ -1,0 +1,24 @@
+name: openai-realtime-agents-chainlit
+services:
+    # Code modules to deploy
+    ui:
+        # Source folder    
+        project: src/ui
+        # Preferred option                  
+        host: containerapp
+        language: python
+        docker:
+            # This must exists under source folder (ex. src/ui)        
+            path: ./Dockerfile
+            remoteBuild: true
+    agents:
+        # Source folder    
+        project: src/agents
+        # Preferred option                  
+        host: containerapp
+        language: python
+        docker:
+            # This must exists under source folder (ex. src/ui)        
+            path: ./Dockerfile
+            remoteBuild: true
+    
