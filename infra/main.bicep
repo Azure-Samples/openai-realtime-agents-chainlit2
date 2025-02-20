@@ -36,7 +36,7 @@ module acrModule './acr.bicep' = {
   }
 }
 
-module openAI './openAI.bicep' = {
+module openAI './openai.bicep' = {
   name: 'openAI'
   scope: resourceGroup(openAIResourceGroupName)
   params: {
