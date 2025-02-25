@@ -35,6 +35,10 @@ jobs:
       - name: Remove Old Bicep Files
         run: rm -rf infra/*.bicep  
 
+      # DEBUG
+      - name: Debug Infra Directory
+        run: ls -l infra/
+  
       # using the install-azd action
       - name: Install azd
         uses: Azure/setup-azd@v2.1.0
