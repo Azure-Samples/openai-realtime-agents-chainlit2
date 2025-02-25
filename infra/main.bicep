@@ -6,7 +6,6 @@ targetScope = 'subscription'
 param environmentName string
 
 @description('The current user ID, to assign RBAC permissions to')
-param currentUserId string
 
 // Main deployment parameters
 param useFakeContainerImage bool = false
@@ -38,10 +37,10 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
 }
 
 var uniqueId = uniqueString(rg.id)
-var currentUserType = empty(runningOnGh) ? 'User' : 'ServicePrincipal'
 
 module uami './uami.bicep' = {
   name: 'uami'
+  scope: rg
   params: {
     uniqueId: uniqueId
     prefix: prefix
@@ -51,6 +50,7 @@ module uami './uami.bicep' = {
 
 module appin './appin.bicep' = {
   name: 'appin'
+  scope: rg
   params: {
     uniqueId: uniqueId
     prefix: prefix
@@ -62,6 +62,7 @@ module appin './appin.bicep' = {
 // Reference to the ACR module, assuming the file is named 'acr.bicep' and located in the same directory
 module acrModule './acr.bicep' = {
   name: 'acr'
+  scope: rg
   params: {
     uniqueId: uniqueId
     prefix: prefix
@@ -81,6 +82,7 @@ module openAI './openai.bicep' = {
 
 module cosmosdb './cosmos.bicep' = {
   name: 'cosmosdb'
+  scope: rg
   params: {
     uniqueId: uniqueId
     prefix: prefix
@@ -91,6 +93,7 @@ module cosmosdb './cosmos.bicep' = {
 
 module aca './aca.bicep' = {
   name: 'aca'
+  scope: rg
   params: {
     uniqueId: uniqueId
     prefix: prefix
@@ -114,7 +117,7 @@ module aca './aca.bicep' = {
 output AZURE_RESOURCE_GROUP string = rg.name
 output AZURE_TENANT_ID string = subscription().tenantId
 output AZURE_USER_ASSIGNED_IDENTITY_ID string = uami.outputs.identityId
-output AZURE_CONTAINER_REGISTRY_ENDPOINT string = acrModule.outputs.acrEndpoint
+// output AZURE_CONTAINER_REGISTRY_ENDPOINT string = acrModule.outputs.acrEndpoint
 // output AZURE_OPENAI_EMBEDDING_DEPLOYMENT string = embeddingModel
 // output AZURE_OPENAI_EMBEDDING_MODEL string = embeddingModel
 // output AZURE_STORAGE_ENDPOINT string = storage.outputs.storageAccountEndpoint
@@ -124,15 +127,15 @@ output APPLICATIONINSIGHTS_CONNECTIONSTRING string = appin.outputs.applicationIn
 output COSMOSDB_ENDPOINT string = cosmosdb.outputs.cosmosDbEndpoint
 output COSMOSDB_DATABASE string = cosmosdb.outputs.cosmosDbDatabase
 output COSMOSDB_CONTAINER string = cosmosdb.outputs.cosmosDbContainer
-output COSMOSDB_CONFIG_CONTAINER string = cosmosdb.outputs.cosmosDbConfigContainer
+// output COSMOSDB_CONFIG_CONTAINER string = cosmosdb.outputs.cosmosDbConfigContainer
 // output ACS_ENDPOINT string = acs.outputs.acsEndpoint
 // output ACS_TOPIC_RESOURCE_ID string = acs.outputs.acsTopicId
 // output LOGIC_APPS_URL string = logicapp.outputs.approveServiceUrl
 // output OPENTICKET_LOGIC_APPS_URL string = logicapp.outputs.openTicketUrl
-output AZURE_OPENAI_MODEL string = openAIModel
+// output AZURE_OPENAI_MODEL string = openAIModel
 output AZURE_OPENAI_ENDPOINT string = openAI.outputs.openAIEndpoint
-output AZURE_OPENAI_API_VERSION string = openAIApiVersion
-output AZURE_SEARCH_ENDPOINT string = search.outputs.endpoint
+// output AZURE_OPENAI_API_VERSION string = openAIApiVersion
+// output AZURE_SEARCH_ENDPOINT string = search.outputs.endpoint
 // output AZURE_SEARCH_INDEX_NAME string = searchIndexName
 // output AZURE_SEARCH_ADMIN_KEY string = search.outputs.adminKey
 // output AZURE_OPENAI_WHISPER_VERSION string = openAIWhisperVersion
@@ -141,5 +144,5 @@ output AZURE_SEARCH_ENDPOINT string = search.outputs.endpoint
 // output SPEECH_KEY string = speech.outputs.speechServiceKey
 // output COGNITIVE_SERVICES_ENDPOINT string = speech.outputs.speechServiceEndpoint
 // output SPEECH_REGION string = location
-output VOICE_WEBHOOK_URL string = 'https://${aca.outputs.voiceEndpoint}/api/call'
+// output VOICE_WEBHOOK_URL string = 'https://${aca.outputs.voiceEndpoint}/api/call'
 // output VOICE_SUBSCRIPTION_NAME string = '${prefix}-call-sub-${uniqueId}'
