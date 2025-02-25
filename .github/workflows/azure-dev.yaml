@@ -28,17 +28,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # Ensures a full clone and avoids stale files
-      
-      # Clears any old cached versions
-      - name: Remove Old Bicep Files
-        run: rm -rf infra/*.bicep  
 
-      # DEBUG
-      - name: Debug Infra Directory
-        run: ls -l infra/
-  
       # using the install-azd action
       - name: Install azd
         uses: Azure/setup-azd@v2.1.0
