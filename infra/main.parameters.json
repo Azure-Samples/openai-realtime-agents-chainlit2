@@ -6,7 +6,7 @@
         "value": "aoai-chainlit"
       },
       "openAIResourceGroupName": {
-        "value": "rg-realtime-agents-chainlit"
+        "value": "rg-realtime-agents-chainlit2"
       },
       "useFakeContainerImage": {
         "value": true
