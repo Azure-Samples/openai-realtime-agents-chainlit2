@@ -66,7 +66,7 @@ module aca './aca.bicep' = {
     logAnalyticsWorkspaceName: appin.outputs.logAnalyticsWorkspaceName
     applicationInsightsConnectionString: appin.outputs.applicationInsightsConnectionString
     openAiApiKey: '' // openAI.listKeys().key1
-    // openAiEndpoint: openAI.outputs.openAIEndpoint
+    openAiEndpoint: openAI.outputs.openAIEndpoint
     userAssignedIdentityClientId: uami.outputs.clientId
     cosmosDbContainer: cosmosdb.outputs.cosmosDbContainer
     cosmosDbDatabase: cosmosdb.outputs.cosmosDbDatabase
