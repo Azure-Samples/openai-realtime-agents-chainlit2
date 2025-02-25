@@ -29,7 +29,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  
+          fetch-depth: 0   # Ensures a full clone and avoids stale files
+      
+      # Clears any old cached versions
+      - name: Remove Old Bicep Files
+        run: rm -rf infra/*.bicep  
+
       # using the install-azd action
       - name: Install azd
         uses: Azure/setup-azd@v2.1.0
