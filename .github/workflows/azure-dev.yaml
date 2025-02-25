@@ -43,6 +43,11 @@ jobs:
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
 
+      # Create the resource group
+      - name: Create Resource Group
+        run: |
+          az group create --name rg-$Env:AZURE_ENV_NAME --location $Env:AZURE_LOCATION
+
       - name: Provision Infrastructure
         run: azd provision --no-prompt
         env:
